@@ -1,0 +1,33 @@
+{
+  "name": "@stella1013/ufo-sightings-tracker-backend",
+  "version": "1.0.0",
+  "description": "Service for UFO sightings database",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stella1013/UFO-Sightings-Tracker.git"
+  },
+  "keywords": [
+    "aws",
+    "docker",
+    "kubernetes",
+    "terraform",
+    "typescript"
+  ],
+  "author": "Veronica Preston <relativelydarling@gmail.com> (http://www.veronicapreston@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stella1013/UFO-Sightings-Tracker/issues"
+  },
+  "homepage": "https://github.com/stella1013/UFO-Sightings-Tracker#readme",
+  "devDependencies": {
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1"
+  },
+  "dependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
