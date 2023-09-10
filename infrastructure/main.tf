@@ -15,35 +15,7 @@ terraform {
   }
 
 }
-variable "AWS_ACCESS_KEY_ID" {
-    type = string
 
-}
-variable "AWS_ACCESS_KEY" {
-     type = string
-}
-variable "UFOST_AWS_ACCESS_KEY_ID" {
-    type = string
-
-}
-variable "UFOST_AWS_ACCESS_KEY" {
-     type = string
-}
-variable "aws_region" {
-     type = string
-}
-variable "instance_name" {
-     type = string
-}
-variable "vpc_id" {
-     type = string
-}
-variable "vpc_cidr_block" {
-     type = string
-}
-variable "key_name" {
-     type = string
-}
 provider "aws" {
   region = var.aws_region
 }
@@ -77,6 +49,7 @@ resource "aws_instance" "app-server-jenkins" {
   key_name = var.key_name
   iam_instance_profile = "${aws_iam_instance_profile.test_profile.name}"
   vpc_security_group_ids = [aws_security_group.jenkins_secgroup.id]
+  user_data       = "${file("install_jenkins.sh")}"
   
   tags = {
     Name = var.instance_name
@@ -87,8 +60,8 @@ resource "aws_security_group" "jenkins_secgroup" {
   name        = "jenkins_secgroup"
   description = "Allow Jenkins web traffic for inbound ssh and http and all outbound"
   vpc_id      = var.vpc_id
-  
 
+ 
   ingress {
     description = "Allow from Personal CIDR block"
     from_port   = 8081
