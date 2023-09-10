@@ -17,40 +17,41 @@ terraform {
 }
 
 provider "aws" {
-  region = var.aws_region
+  region = "us-east-2"
 }
 resource "aws_iam_instance_profile" "test_profile" {
   name = "test_profile"
   role = aws_iam_role.role.name
 }
 
-data "aws_iam_policy_document" "assume_role" {
-  statement {
-    effect = "Allow"
-
-    principals {
-      type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
-    }
-
-    actions = ["sts:AssumeRole"]
-  }
-}
 
 resource "aws_iam_role" "role" {
   name               = "test_role"
-  path               = "/"
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+  assume_role_policy = <<EOF
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+        "Action": "sts:AssumeRole",
+        "Principal": {
+            "Service": "ec2.amazonaws.com"
+        },
+        "Effect": "Allow",
+        "Sid": ""
+        }
+    ]
+    }
+    EOF
 }
 
 resource "aws_instance" "app-server-jenkins" {
-  ami             = "ami-00a9282ce3b5ddfb1"
-  instance_type   = "t2.micro"
-  key_name = var.key_name
-  iam_instance_profile = "${aws_iam_instance_profile.test_profile.name}"
+  ami                    = "ami-00a9282ce3b5ddfb1"
+  instance_type          = "t2.micro"
+  key_name               = "sandboxkeyreg2"
+  iam_instance_profile   = aws_iam_instance_profile.test_profile.name
   vpc_security_group_ids = [aws_security_group.jenkins_secgroup.id]
-  user_data       = "${file("install_jenkins.sh")}"
-  
+  user_data              = file("install_jenkins.sh")
+
   tags = {
     Name = var.instance_name
   }
@@ -61,7 +62,7 @@ resource "aws_security_group" "jenkins_secgroup" {
   description = "Allow Jenkins web traffic for inbound ssh and http and all outbound"
   vpc_id      = var.vpc_id
 
- 
+
   ingress {
     description = "Allow from Personal CIDR block"
     from_port   = 8081
@@ -79,10 +80,10 @@ resource "aws_security_group" "jenkins_secgroup" {
   }
 
   egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
 }
