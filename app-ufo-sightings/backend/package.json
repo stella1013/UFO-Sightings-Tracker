@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "jest",
+    "test": "jest --watch",
     "format:check": "prettier --check 'src/**/*.{ts,js,mdx}'",
     "format:write": "prettier --write 'src/**/*.{ts,js,mdx}'",
     "validate": "run-s test lint prettier:check"
