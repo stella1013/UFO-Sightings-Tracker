@@ -1,0 +1,69 @@
+# Commands
+# run 1st
+# docker-compose up -d --build server
+# run 2nd
+# docker-compose up -d --build artisan
+version: "3.8"
+services:
+  server:
+      #image: 'nginx:stable-alpine'
+      build:
+        context: .
+        dockerfile: nginx/Dockerfile
+      ports:
+        - '8000:80'
+      #comment out volumes for deployment ready  
+      volumes:
+        - ./data:/usr/share/nginx/html
+        - ./server/nginx/nginx.conf:/etc/nginx/default.conf:ro
+      depends_on:
+        - php
+        - database
+        - python
+      networks:
+      - webapp-network
+  php:
+      build: 
+        context: .
+        dockerfile: php/Dockerfile
+      #comment out volumes for deployment ready  
+      volumes:
+        - ./data:/usr/share/nginx/html:delegated
+      networks:
+      - webapp-network
+      depends_on:
+        - database
+        - python
+  database:
+      platform: linux/x86_64
+      image: mysql:5.7
+      restart: always
+      ports:
+        - "9906:3306"
+      env_file:
+        - ./env/mysql.env
+      command: --init-file /data/application/init.sql
+      volumes:
+        - ./init.sql:/data/application/init.sql
+  python:
+    build:
+      context: .
+      dockerfile: python/Dockerfile
+    volumes:
+      - ./data:/usr/share/nginx/html:delegated
+    networks:
+      - webapp-network
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+        - '8080:80'
+    restart: always
+    environment:
+        PMA_HOST: database
+    depends_on:
+        - database
+volumes: #only named volumes here
+  database_data_container:
+networks:
+  webapp-network:
+    driver: bridge
