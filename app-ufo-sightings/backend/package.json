@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon app.js",
     "test": "jest --watch",
+    "lint": "eslint src/**",
     "format:check": "prettier --check 'src/**/*.{ts,js,mdx}'",
     "format:write": "prettier --write 'src/**/*.{ts,js,mdx}'",
     "validate": "run-s test lint prettier:check"
@@ -27,6 +28,8 @@
     "mongoose": "^7.5.0"
   },
   "devDependencies": {
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
     "uuid": "^9.0.0"
