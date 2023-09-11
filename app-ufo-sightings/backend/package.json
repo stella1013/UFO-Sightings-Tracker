@@ -1,0 +1,31 @@
+{
+    "name": "@stella1013/ufo-sightings-tracker-backend",
+    "version": "1.0.0",
+    "description": "Restful API Service for UFO sightings database",
+    "main": "app.js",
+    "scripts": {
+        "start": "nodemon app.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "nodeJS",
+        "docker",
+        "express",
+        "mongo"
+    ],
+    "author": "Veronica Preston <relativelydarling@gmail.com> (http://www.veronicapreston@gmail.com)",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.20.2",
+        "express": "^4.18.2",
+        "express-validator": "^7.0.1",
+        "jest": "^29.6.4",
+        "mongodb": "^6.0.0",
+        "mongoose": "^7.5.0"
+    },
+    "devDependencies": {
+        
+        "nodemon": "^3.0.1",
+        "uuid": "^9.0.0"
+    }
+}
