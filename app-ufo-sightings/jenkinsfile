@@ -1,0 +1,41 @@
+pipeline {
+  agent any
+
+  stages {
+    // place other parameters here
+    stage('Run SCA Analysys with Snyk') {
+      steps {
+        echo 'Testing...'
+        snykSecurity(
+          snykInstallation: '<Your Snyk Installation Name>',
+          snykTokenId: '<Your Snyk API Token ID>',
+          // place other parameters here
+        )
+      }
+    }
+     stage('Build') {
+      // This step will involve building an image and hosting on Docker Hub
+      //Credentials will need to be made in Jenkins
+      steps {
+        withDockerRegistry([credentialsId: "dockerlogin", url:""]){
+          
+            app= docker.build("mySecurityGroup")
+        
+        }
+      }
+    }
+    stage('This pushing to EC2. Create AWS Elastic Container Registry  in Jenkins Credential Registry and') {
+      steps {
+        docker.withDockerRegistry('https://,' )
+      }
+    }
+    stage('Kubernetes Deployment of Security to Group to add to resources to a namespace') {
+      steps {
+      }
+    }
+    stage('Integrate DAST using OWASP ZAP') {
+      steps {
+      }
+    }
+  }
+}
