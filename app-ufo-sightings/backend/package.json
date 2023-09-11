@@ -5,7 +5,10 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "jest"
+    "test": "jest",
+    "format:check": "prettier --check 'src/**/*.{ts,js,mdx}'",
+    "format:write": "prettier --write 'src/**/*.{ts,js,mdx}'",
+    "validate": "run-s test lint prettier:check"
   },
   "keywords": [
     "nodeJS",
@@ -25,6 +28,7 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1",
+    "prettier": "^3.0.3",
     "uuid": "^9.0.0"
   }
 }
