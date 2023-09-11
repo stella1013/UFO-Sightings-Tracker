@@ -2,11 +2,7 @@ pipeline {
   agent any
 
   stages {
-    stage('Build') {
-      steps {
-        echo 'Building...'
-      }
-    }
+    // place other parameters here
     stage('Run SCA Analysys with Snyk') {
       steps {
         echo 'Testing...'
@@ -17,9 +13,28 @@ pipeline {
         )
       }
     }
-    stage('Deploy') {
+     stage('Build') {
+      // This step will involve building an image and hosting on Docker Hub
+      //Credentials will need to be made in Jenkins
       steps {
-        echo 'Deploying...'
+        withDockerRegistry([credentialsId: "dockerlogin", url:""]){
+          
+            app= docker.build("mySecurityGroup")
+        
+        }
+      }
+    }
+    stage('This pushing to EC2. Create AWS Elastic Container Registry  in Jenkins Credential Registry and') {
+      steps {
+        docker.withDockerRegistry('https://,' )
+      }
+    }
+    stage('Kubernetes Deployment of Security to Group to add to resources to a namespace') {
+      steps {
+      }
+    }
+    stage('Integrate DAST using OWASP ZAP') {
+      steps {
       }
     }
   }

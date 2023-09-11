@@ -1,33 +1,39 @@
 {
   "name": "@stella1013/ufo-sightings-tracker-backend",
   "version": "1.0.0",
-  "description": "Service for UFO sightings database",
+  "description": "Restful API Service for UFO sightings database",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/stella1013/UFO-Sightings-Tracker.git"
+    "start": "nodemon app.js",
+    "test": "jest --watch",
+    "lint": "eslint src/**",
+    "format:check": "prettier --check 'src/**/*.{ts,js,mdx}'",
+    "format:write": "prettier --write 'src/**/*.{ts,js,mdx}'",
+    "validate": "run-s test lint prettier:check"
   },
   "keywords": [
-    "aws",
+    "nodeJS",
     "docker",
-    "kubernetes",
-    "terraform",
-    "typescript"
+    "express",
+    "mongo"
   ],
   "author": "Veronica Preston <relativelydarling@gmail.com> (http://www.veronicapreston@gmail.com)",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/stella1013/UFO-Sightings-Tracker/issues"
-  },
-  "homepage": "https://github.com/stella1013/UFO-Sightings-Tracker#readme",
-  "devDependencies": {
-    "express": "^4.18.2",
-    "express-validator": "^7.0.1"
-  },
   "dependencies": {
-    "nodemon": "^3.0.1"
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jest": "^29.6.4",
+    "mongodb": "^6.0.0",
+    "mongoose": "^7.5.0",
+    "puppeteer": "^21.1.1"
+  },
+  "devDependencies": {
+    "axios": "^1.5.0",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.3",
+    "uuid": "^9.0.0"
   }
 }
