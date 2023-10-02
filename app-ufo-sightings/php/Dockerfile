@@ -1,15 +1,13 @@
-FROM php:7.4-fpm-alpine
-
-RUN docker-php-ext-install opcache pdo pdo_mysql
-
-COPY ./data/* /var/www/html/
+FROM php:8.1-fpm-alpine
 
 WORKDIR /var/www/html
 
-#comment in for deployment... might need to uncomment regardless
-#COPY src .
-
-#RUN docker-php-ext-install pdo pdo_mysql
-
-#comment in for deployment
-#RUN chown -R www-data:www-data /var/www/html
+COPY src .
+ 
+RUN docker-php-ext-install pdo pdo_mysql
+ 
+RUN chown -R www-data:www-data /var/www/html
+ 
+RUN chmod -R 777 /var/www/html/storage
+ 
+RUN addgroup -g 1000 laravel && adduser -G laravel -g laravel -s /bin/sh -D laravel
