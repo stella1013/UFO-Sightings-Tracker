@@ -1,0 +1,13 @@
+artisan:
+        build:
+            context: .
+            dockerfile: dockerfiles/php.dockerfile
+        volumes:
+            - ./src:/var/www/html
+        entrypoint: ['php', '/var/www/html/artisan']
+    npm:
+        image: node:14
+        working_dir: /var/www/html
+        entrypoint: ['npm']
+        volumes:
+            - ./src:/var/www/html
