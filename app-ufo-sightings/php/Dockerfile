@@ -10,4 +10,4 @@ RUN chown -R www-data:www-data /var/www/html
  
 RUN chmod -R 777 /var/www/html/storage
  
-RUN addgroup -g 1000 laravel && adduser -G laravel -g laravel -s /bin/sh -D laravel
+#RUN addgroup -g 1000 laravel && adduser -G laravel -g laravel -s /bin/sh -D laravel
