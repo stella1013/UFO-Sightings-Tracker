@@ -29,14 +29,6 @@ services:
       depends_on:
         - mysql
         - python
-  phpunit:
-    build:
-      context: .
-      dockerfile: phpunit/Dockerfile
-    volumes:
-      - ./src:/var/www/html:delegated
-    depends_on:
-      - php
   mysql:
       image: arm64v8/mysql
       platform: linux/amd64    
