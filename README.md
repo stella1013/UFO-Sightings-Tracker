@@ -35,13 +35,19 @@ NOTE: After executing the intallation of the PHPUnit files the container will ex
 
 ### Installing PHPUnit
 
+Inside PHP Container as shell
 Run PHPUnit already installed on container
 
    1. Run php Docker Container shell
       1. `docker exec -i -t app-ufo-sightings_php_1 sh`
    2. Run PHPUnit
       1. `./vendor/bin/phpunit`
+Or 
+Outside PHP Container
+1. `docker-compose run php ./vendor/bin/phpunit`
 
+### Generate PHPUnit Configuration
+1. `docker-compose run php ./vendor/bin/phpunit --generate-configuration`
 Next: ### To run PHPUnit for Production
 
 ## Project Blog
